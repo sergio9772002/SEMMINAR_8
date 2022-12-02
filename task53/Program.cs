@@ -1,4 +1,5 @@
-﻿/*Задача 53: Задайте двумерный массив. Напишите программу, 
+﻿using System.Collections;
+/*Задача 53: Задайте двумерный массив. Напишите программу, 
 которая поменяет местами первую и последнюю строку массива.
 */
 int[,] Generate2DArray(int lengthRow, int lengthCol, int deviation)
@@ -41,6 +42,27 @@ void print2dArray(int[,] array, string Name ="")
         Console.WriteLine();
     }
 }
+Dictionary<int,int> getFrequencyDictionary(int[,] array)
+{
+    Dictionary<int,int> dictionary = new Dictionary<int, int>();
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (dictionary.ContainsKey(array[i, j]))
+            {
+                dictionary[array[i, j]]++;
+            }
+            else
+            {
+                dictionary[array[i, j]] = 1;
+            }
+        }
+    }
+
+    return dictionary;
+}
+/*
 int[,] changeLinesOfArray(int[,] array, int line1, int line2)
 {
     for (int i = 0; i < array.GetLength(1); i++)
@@ -51,8 +73,17 @@ int[,] changeLinesOfArray(int[,] array, int line1, int line2)
     }
     return array;
 }
-
-int[,] generatedArray = Generate2DArray(7,8,10);
+*/
+void printDictionary(Dictionary<int,int> dictionary)
+{
+    foreach (var item in dictionary)
+    {
+        Console.WriteLine($"Число {item.Key} встречается {item.Value}");
+    }  
+}
+int[,] generatedArray = Generate2DArray(5,5,10);
 print2dArray(generatedArray, "Изначальный массив");
-int[,] changedArray = changeLinesOfArray(generatedArray, 0 , generatedArray.GetLength(0) - 1);
-print2dArray(changedArray, "Измененный массив");
+//int[,] changedArray = changeLinesOfArray(generatedArray, 0 , generatedArray.GetLength(0) - 1);
+//print2dArray(changedArray, "Измененный массив");
+Dictionary<int,int> frequencyDictionary = getFrequencyDictionary(generatedArray);
+printDictionary(frequencyDictionary);
